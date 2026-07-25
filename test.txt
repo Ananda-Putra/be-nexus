@@ -1,0 +1,20 @@
+php artisan make:controller Api/Auth/AuthController
+php artisan make:controller Api/ProductController --api
+php artisan make:controller Api/CategoryController --api
+php artisan make:controller Api/CartController --api
+php artisan make:controller Api/CheckoutController
+php artisan make:controller Api/OrderController --api
+php artisan make:controller Api/AddressController --api
+php artisan make:controller Api/PaymentController
+
+php artisan make:controller Api/Admin/AdminOrderController --api
+php artisan make:controller Api/Admin/AdminProductController --api
+php artisan make:controller Api/Admin/AdminDashboardController
+
+
+php artisan make:request Auth/RegisterRequest
+php artisan make:request Auth/LoginRequest
+php artisan make:request Product/StoreProductRequest
+php artisan make:request Product/UpdateProductRequest
+php artisan make:request Cart/AddToCartRequest
+php artisan make:request Checkout/CheckoutRequest
