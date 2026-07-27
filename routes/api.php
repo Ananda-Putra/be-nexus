@@ -6,6 +6,9 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\CheckoutController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\OrderController;
 
 // Public routes
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -15,6 +18,8 @@ Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products/{product}', [ProductController::class, 'show']);
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{category}', [CategoryController::class, 'show']);
+Route::post('/payment/notification', [PaymentController::class, 'notification']);
+
 
 // Protected routes (butuh token)
 Route::middleware('auth:sanctum')->group(function () {
@@ -30,6 +35,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/addresses/{address}', [AddressController::class, 'show']);
     Route::put('/addresses/{address}', [AddressController::class, 'update']);
     Route::delete('/addresses/{address}', [AddressController::class, 'destroy']);
+    Route::post('/checkout', [CheckoutController::class, 'store']);
+    Route::post('/orders/{order}/pay', [PaymentController::class, 'createSnapToken']);
+    Route::get('/orders/{order}/payment-status', [PaymentController::class, 'status']);
+    Route::get('/orders', [OrderController::class, 'index']);
+    Route::get('/orders/{order}', [OrderController::class, 'show']);
+    Route::post('/orders/{order}/cancel', [OrderController::class, 'cancel']);
 
     // Admin only
     Route::middleware('admin')->group(function () {
