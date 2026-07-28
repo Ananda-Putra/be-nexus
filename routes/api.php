@@ -9,6 +9,8 @@ use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\CheckoutController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\Admin\AdminOrderController;
+use App\Http\Controllers\Api\Admin\AdminDashboardController;
 
 // Public routes
 Route::post('/auth/register', [AuthController::class, 'register']);
@@ -51,5 +53,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/categories', [CategoryController::class, 'store']);
         Route::put('/categories/{category}', [CategoryController::class, 'update']);
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
+        Route::get('/admin/orders', [AdminOrderController::class, 'index']);
+        Route::get('/admin/orders/{order}', [AdminOrderController::class, 'show']);
+        Route::put('/admin/orders/{order}/status', [AdminOrderController::class, 'updateStatus']);
+        Route::get('/admin/dashboard', [AdminDashboardController::class, 'index']);
     });
 });

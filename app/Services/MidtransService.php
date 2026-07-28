@@ -53,16 +53,19 @@ class MidtransService
         return $snapToken;
     }
 
-    public function handleNotification(): array
+    public function handleNotification(array $payload): array
     {
-        $notification = new Transaction();
-
-        $orderIdRaw = $notification->order_id;
-        $transactionStatus = $notification->transaction_status;
-        $fraudStatus = $notification->fraud_status ?? null;
+        $orderIdRaw = $payload['order_id'] ?? null;
+        $transactionStatus = $payload['transaction_status'] ?? null;
+        $fraudStatus = $payload['fraud_status'] ?? null;
+        $transactionId = $payload['transaction_id'] ?? null;
 
         preg_match('/ORDER-(\d+)-/', $orderIdRaw, $matches);
         $orderId = $matches[1] ?? null;
+
+        if (! $orderId) {
+            throw new \Exception('Order ID tidak ditemukan dalam payload notifikasi.');
+        }
 
         $order = Order::findOrFail($orderId);
         $payment = $order->payment;
@@ -77,7 +80,7 @@ class MidtransService
 
         $payment->update([
             'status' => $status,
-            'midtrans_transaction_id' => $notification->transaction_id,
+            'midtrans_transaction_id' => $transactionId,
         ]);
 
         if ($status === 'paid') {

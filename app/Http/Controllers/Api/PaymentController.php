@@ -28,9 +28,9 @@ class PaymentController extends Controller
         return response()->json(['snap_token' => $snapToken]);
     }
 
-    public function notification()
+    public function notification(Request $request)
     {
-        $result = $this->midtransService->handleNotification();
+        $result = $this->midtransService->handleNotification($request->all());
 
         return response()->json($result);
     }
