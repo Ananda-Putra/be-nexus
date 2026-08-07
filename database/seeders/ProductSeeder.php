@@ -28,6 +28,7 @@ class ProductSeeder extends Seeder
                 'description' => 'Laptop untuk kebutuhan kerja dan gaming',
                 'price' => 8500000,
                 'stock' => 10,
+                'image_url' => 'https://i.pcmag.com/imagery/reviews/032Ghc5tCjiCya7cxiW3B5O-11.jpg',
             ],
             [
                 'name' => 'Shoes',

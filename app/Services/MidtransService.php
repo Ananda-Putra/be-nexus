@@ -37,6 +37,8 @@ class MidtransService
                     'name' => $item->product->name,
                 ];
             })->toArray(),
+
+            'finish_redirect_url' => env('APP_URL_FRONTEND', 'http://localhost:3000') . '/order-callback',
         ];
 
         $snapToken = Snap::getSnapToken($params);

@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    public function wishlists()
+    {
+        return $this->hasMany(Wishlist::class);
+    }
 }
